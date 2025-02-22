@@ -1,13 +1,13 @@
 import cloudinary from 'cloudinary';
-import dotenv from 'dotenv';
+import ConfigService from './configService.js';
+import { handleError } from '../utils.js';
 
-dotenv.config();
+const config = ConfigService.getConfig();
 
-// configure cloudinary
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  cloud_name: config?.cloudName,
+  api_key: config?.apiKey,
+  api_secret: config?.apiSecret
 })
 
 const options = {
@@ -22,16 +22,15 @@ const Cloudinary = {
       const result = await cloudinary.v2.uploader.upload(filePath, options);
       return result
     } catch (error) {
-      console.error(error);
+      handleError(error)
     }
   },
 
   deleteImage: async (publicId) => {
     try {
-      const result = await cloudinary.v2.uploader.destroy(publicId, options);
-      return result
+      await cloudinary.v2.uploader.destroy(publicId, options);
     } catch (error) {
-      console.error(error);
+      handleError(error)
     }
   }
 }
