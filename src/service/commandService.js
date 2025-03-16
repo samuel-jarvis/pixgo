@@ -72,7 +72,6 @@ export const Commands = {
     console.log(`Total images: ${data.length}`)
   },
 
-  // config related commands
   getConfig: () => {
     try {
       console.log('⚠️ Make Sure not one is looking ⚠️')
