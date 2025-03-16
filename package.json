@@ -1,9 +1,9 @@
 {
-  "name": "image_go",
+  "name": "pixgo",
   "version": "1.0.0",
   "description": "A CLI tool to upload images to Cloudinary",
   "main": "index.js",
-  "author": "Samuel Jarvis",
+  "author": "Samuel Jarvis Adeyemi",
   "license": "MIT",
   "type": "module",
   "bin": {
