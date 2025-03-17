@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "pixgo": "./index.js"
+    "pixgo": "index.js"
   },
   "dependencies": {
     "cloudinary": "^2.5.1",
