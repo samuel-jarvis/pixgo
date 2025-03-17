@@ -10,7 +10,7 @@
     "pixgo": "index.js"
   },
   "dependencies": {
-    "cloudinary": "^2.5.1",
+    "cloudinary": "^2.6.0",
     "commander": "^13.0.0",
     "dotenv": "^16.4.7",
     "inquirer": "^12.3.2",
