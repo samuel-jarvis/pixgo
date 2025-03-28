@@ -9,6 +9,20 @@
   "bin": {
     "pixgo": "index.js"
   },
+  "keywords": [
+    "cloudinary",
+    "cli",
+    "image",
+    "upload",
+    "image-management",
+    "cloudinary-cli",
+    "media",
+    "image-upload",
+    "command-line",
+    "terminal",
+    "image-upload",
+    "developer-tools"
+  ],
   "dependencies": {
     "cloudinary": "^2.6.0",
     "commander": "^13.0.0",

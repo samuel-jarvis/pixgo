@@ -16,6 +16,10 @@ It can be useful for developers who want to quickly upload images to Cloudinary 
 
 ## Installation
 
+### Requirements
+
+- Node.js v14.0.0 or higher
+
 ```bash
 npm install -g pixgo
 ```
@@ -106,5 +110,3 @@ This project is licensed under the MIT License.
 
 - Built with [Commander.js](https://www.npmjs.com/package/commander)
 - Image processing powered by [Cloudinary](https://cloudinary.com/)
-
-<!-- ...existing content... -->
