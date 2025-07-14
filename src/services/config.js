@@ -3,14 +3,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const configPath = path.join(__dirname, '..', '..', 'config.json');
 const process = globalThis.process;
 
-const ConfigService = {
-  checkConfig: function() {
+class ConfigService {
+  static checkConfig() {
     if (!fs.existsSync(configPath)) {
       return false;
     }
@@ -21,29 +19,29 @@ const ConfigService = {
     }
 
     return true;
-  },
+  }
 
-  getConfig: function() {
-    if (!ConfigService.checkConfig()) {
-      console.error("Please run 'cloudinary-cli config' to set up your configuration.");
+  static getConfig() {
+    if (!this.checkConfig()) {
+      console.error("Please run 'pixgo config init' to set up your configuration.");
       process.exit(1);
     }
 
     return JSON.parse(fs.readFileSync(configPath, 'utf8'));
-  },
+  }
 
-  writeConfig : function(config) {
+  static writeConfig(config) {
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
     console.log(`Config saved to ${configPath}`);
-  },
+  }
 
-  createConfig: async function() {
+  static async createConfig() {
     const questions = [
       {
         name: 'cloudName',
         type: 'input',
         message: 'Enter your Cloudinary cloud name:',
-        validate: function( value ) {
+        validate: function (value) {
           if (value.length) {
             return true;
           } else {
@@ -55,7 +53,7 @@ const ConfigService = {
         name: 'apiKey',
         type: 'input',
         message: 'Enter your Cloudinary API key:',
-        validate: function( value ) {
+        validate: function (value) {
           if (value.length) {
             return true;
           } else {
@@ -67,7 +65,7 @@ const ConfigService = {
         name: 'apiSecret',
         type: 'input',
         message: 'Enter your Cloudinary API secret:',
-        validate: function(value) {
+        validate: function (value) {
           if (value.length) {
             return true;
           } else {
@@ -78,7 +76,7 @@ const ConfigService = {
     ];
 
     const answers = await inquirer.prompt(questions);
-    ConfigService.writeConfig(answers);
+    this.writeConfig(answers);
   }
 }
 

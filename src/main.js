@@ -1,57 +1,70 @@
-import { program } from "commander";
-import { Commands } from "./service/commandService.js";
+import { program } from 'commander';
+import {
+  uploadCommand,
+  deleteCommand,
+  historyCommand,
+  getConfigCommand,
+  initConfigCommand
+} from './commands/index.js';
 
 const process = globalThis.process;
 
 program
-  .name("Pixgo")
-  .version("0.0.1")
-  .description("A CLI tool to upload images to Cloudinary");
+  .name('Pixgo')
+  .version('1.0.5')
+  .description(`
+    Pixgo - A command line tool for:
+    • Uploading images to Cloudinary
+    • Managing uploaded images
+    • Viewing upload history
+  `);
 
 program
-  .command("hello")
-  .description("Prints status message and date and time")
+  .command('hello')
+  .description('Prints status message and date and time')
   .action(() => {
-    console.log("Pixgo - Cloudinary Image Uploader");
+    console.log('Pixgo - Cloudinary Image Uploader');
     const date = new Date();
     console.log(date.toString());
   });
 
 program
-  .command("config")
-  .description("use init to set config and get to view config")
-  .argument('<action>', 'Actions to perform (init | get )')
+  .command('config')
+  .description('Manage configuration settings')
+  .argument('<action>', 'Actions to perform (init | get)')
   .action((action) => {
     if (action === 'get') {
-      Commands.getConfig()
+      getConfigCommand();
     } else if (action === 'init') {
-      Commands.initConfig()
+      initConfigCommand();
     } else {
-      console.log('Invalid Command enter get or init')
-      process.exit(1)
+      console.log('Invalid command. Use "init" or "get"');
+      process.exit(1);
     }
-  })
+  });
 
 program
-  .command("upload <filePath>")
-  .description("Uploads an image to Cloudinary")
+  .command('upload')
+  .description('Upload an image to Cloudinary')
+  .argument('<filePath>', 'Path to the local image file')
   .action(async (filePath) => {
-    await Commands.uploadImage(filePath);
+    await uploadCommand(filePath);
   });
 
 program
-  .command("delete <id>")
-  .description("Delete an uploaded image")
+  .command('delete')
+  .description('Delete an uploaded image')
+  .argument('<id>', 'ID of the image to delete')
   .action(async (id) => {
-    return Commands.deleteUploadedImage(id);
+    await deleteCommand(id);
   });
 
 program
-  .command("history")
-  .description("Get all uploaded images")
-  .option("-c, --count <count>", "Number of images to get")
+  .command('history')
+  .description('Get all uploaded images')
+  .option('-c, --count <count>', 'Number of images to get')
   .action((options) => {
-    Commands.getAllImages(parseInt(options.count));
+    historyCommand(parseInt(options.count));
   });
 
-export default program
+export default program;
